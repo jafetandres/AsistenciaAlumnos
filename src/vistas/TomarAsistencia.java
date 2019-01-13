@@ -22,8 +22,8 @@ import javax.swing.table.DefaultTableModel;
 public class TomarAsistencia extends javax.swing.JInternalFrame {
 
     ControladorAlumno controladorAlumno = new ControladorAlumno();
-    ControladorMateria controladorMateria=new ControladorMateria();
-    ControladorDocente controladorDocente=new ControladorDocente();
+    ControladorMateria controladorMateria = new ControladorMateria();
+    ControladorDocente controladorDocente = new ControladorDocente();
 
     public TomarAsistencia() {
         initComponents();
@@ -220,27 +220,29 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cmbMateriasItemStateChanged
 
     private void btnTomarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarAsistenciaActionPerformed
-      
-        ControladorAdministrador controladorAdministrador=new ControladorAdministrador();
-        int codigoAsistencia = controladorAdministrador.ultimoCodigo("Asistencia") + 1;
-        String nombres="pedro";
-        String apellidos="loja";
-        
-        controladorAdministrador.registrarAsistencia(codigoAsistencia, txtFecha.getText(), 
-                controladorMateria.buscarCodigoMateria(""+cmbMaterias.getSelectedItem()),
-                controladorDocente.buscarCodigoDocente(nombres, apellidos),);
 
-        for (int i = 0; i < tablaMaterias.getRowCount(); i++) {
+        ControladorAdministrador controladorAdministrador = new ControladorAdministrador();
+        //int codigoAsistencia = controladorAdministrador.ultimoCodigo("Asistencia") + 1;
+        String nombres = "pedro";
+        String apellidos = "loja";
+        String estado = "";
 
-            if (tablaMaterias.getValueAt(i, 0).equals(true)) {
+        for (int i = 0; i < tablaAlumnos.getRowCount(); i++) {
+            int codigoAsistencia = controladorAdministrador.ultimoCodigo("Asistencia") + 1;
+            if (tablaAlumnos.getValueAt(i, 3).equals(true)) {
+                estado = "PRESENTE";
 
-                controladorAdministrador.registrarAlumnoMateria(controladorAdministrador.ultimoCodigo("AlumnoMateria") + 1, codigoAlumno, Integer.parseInt("" + tablaMaterias.getValueAt(i, 1)));
+            } else if (tablaAlumnos.getValueAt(i, 3).equals(false)) {
+                estado = "FALTA";
             }
+
+            controladorAdministrador.registrarAsistencia(codigoAsistencia, txtFecha.getText(),
+                    controladorMateria.buscarCodigoMateria("" + cmbMaterias.getSelectedItem()),
+                    controladorDocente.buscarCodigoDocente(nombres, apellidos), Integer.parseInt("" + tablaAlumnos.getValueAt(i, 0)), estado);
 
         }
 
 
-    
     }//GEN-LAST:event_btnTomarAsistenciaActionPerformed
 
 

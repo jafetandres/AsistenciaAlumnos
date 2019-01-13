@@ -41,7 +41,7 @@ public class ControladorDocente {
             }
 
         } catch (Exception e) {
-            System.out.println("Problema al imprimir la información.");
+            System.out.println("Problema al imprimir la información en buscarCodigoDocente.");
         }
         return codigo;
 

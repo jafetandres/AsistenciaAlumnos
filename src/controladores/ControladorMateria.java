@@ -45,15 +45,16 @@ public class ControladorMateria {
     }
     
     public int buscarCodigoMateria(String nomMateria) {
+        System.out.println("nombre materia:"+nomMateria);
 
         int codigo = 0;
         try {
             controladorConexion.conectar();
             s = controladorConexion.conexion.createStatement();
-            rs = s.executeQuery("SELECT codigo FROM Materia WHERE nombre ='"+nomMateria+"')");
+            rs = s.executeQuery("SELECT codigo FROM Materia WHERE nombre ='"+nomMateria+"'");
 
         } catch (Exception e) {
-            System.out.println("Error de conexion" + e);
+            System.out.println("Error de conexion en buscarCodigoMateria" + e);
         }
 
         int cod;
@@ -66,7 +67,7 @@ public class ControladorMateria {
             }
 
         } catch (Exception e) {
-            System.out.println("Problema al imprimir la información.");
+            System.out.println("Problema al imprimir la información en buscarCodigoMateria.");
         }
         return codigo;
 

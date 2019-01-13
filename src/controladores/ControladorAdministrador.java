@@ -41,7 +41,7 @@ public class ControladorAdministrador {
             }
 
         } catch (Exception e) {
-            System.out.println("Problema al imprimir la información.");
+            System.out.println("Problema al imprimir la información en ultimoCodigo.");
         }
         return codigo;
 
@@ -190,7 +190,7 @@ public class ControladorAdministrador {
             }
         } catch (Exception e) {
 
-            System.out.println("Error de SQL" + e);
+            System.out.println("Error de SQL en registrar asistencia" + e);
 
         }
 
