@@ -44,6 +44,32 @@ public class ControladorMateria {
         return lista;
     }
     
-    
+    public int buscarCodigoMateria(String nomMateria) {
+
+        int codigo = 0;
+        try {
+            controladorConexion.conectar();
+            s = controladorConexion.conexion.createStatement();
+            rs = s.executeQuery("SELECT codigo FROM Materia WHERE nombre ='"+nomMateria+"')");
+
+        } catch (Exception e) {
+            System.out.println("Error de conexion" + e);
+        }
+
+        int cod;
+
+        try {
+            while (rs.next()) {
+                cod = rs.getInt(1);
+                codigo = cod;
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Problema al imprimir la información.");
+        }
+        return codigo;
+
+    }
 
 }

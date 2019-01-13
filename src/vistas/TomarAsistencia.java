@@ -5,7 +5,10 @@
  */
 package vistas;
 
+import controladores.ControladorAdministrador;
 import controladores.ControladorAlumno;
+import controladores.ControladorDocente;
+import controladores.ControladorMateria;
 import entidades.Alumno;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,8 @@ import javax.swing.table.DefaultTableModel;
 public class TomarAsistencia extends javax.swing.JInternalFrame {
 
     ControladorAlumno controladorAlumno = new ControladorAlumno();
+    ControladorMateria controladorMateria=new ControladorMateria();
+    ControladorDocente controladorDocente=new ControladorDocente();
 
     public TomarAsistencia() {
         initComponents();
@@ -76,7 +81,7 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnTomarAsistencia = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -88,7 +93,12 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaAlumnos = new javax.swing.JTable();
 
-        jButton1.setText("Tomar Asistencia");
+        btnTomarAsistencia.setText("Tomar Asistencia");
+        btnTomarAsistencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTomarAsistenciaActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
 
@@ -143,7 +153,7 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(168, 168, 168)
-                        .addComponent(jButton1)
+                        .addComponent(btnTomarAsistencia)
                         .addGap(39, 39, 39)
                         .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
@@ -189,7 +199,7 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnTomarAsistencia)
                     .addComponent(jButton2))
                 .addContainerGap())
         );
@@ -209,10 +219,34 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
         llenarTablaAlumnos(tablaAlumnos);
     }//GEN-LAST:event_cmbMateriasItemStateChanged
 
+    private void btnTomarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarAsistenciaActionPerformed
+      
+        ControladorAdministrador controladorAdministrador=new ControladorAdministrador();
+        int codigoAsistencia = controladorAdministrador.ultimoCodigo("Asistencia") + 1;
+        String nombres="pedro";
+        String apellidos="loja";
+        
+        controladorAdministrador.registrarAsistencia(codigoAsistencia, txtFecha.getText(), 
+                controladorMateria.buscarCodigoMateria(""+cmbMaterias.getSelectedItem()),
+                controladorDocente.buscarCodigoDocente(nombres, apellidos),);
+
+        for (int i = 0; i < tablaMaterias.getRowCount(); i++) {
+
+            if (tablaMaterias.getValueAt(i, 0).equals(true)) {
+
+                controladorAdministrador.registrarAlumnoMateria(controladorAdministrador.ultimoCodigo("AlumnoMateria") + 1, codigoAlumno, Integer.parseInt("" + tablaMaterias.getValueAt(i, 1)));
+            }
+
+        }
+
+
+    
+    }//GEN-LAST:event_btnTomarAsistenciaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTomarAsistencia;
     public static javax.swing.JComboBox<String> cmbMaterias;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

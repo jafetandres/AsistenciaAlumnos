@@ -170,4 +170,29 @@ public class ControladorAdministrador {
         }
 
     }
+
+    public void registrarAsistencia(int codigo, String fecha, int codigoMateria, int codigoDocente, int codigoAlumno, String estado) {
+
+        try {
+            controladorConexion.conectar();
+
+            s = controladorConexion.conexion.createStatement();
+
+            int z = s.executeUpdate("INSERT INTO Asistencia (codigo,fecha,codigomateria,codigodocente,codigoalumno,estado)"
+                    + " VALUES ("
+                    + "" + codigo + ",'" + fecha + "'," + codigoMateria + "," + codigoDocente + "," + codigoAlumno + ",'" + estado + "')");
+
+            if (z == 1) {
+                System.out.println("Se agregó el registro de manera exitosa");
+            } else {
+                System.out.println("Ocurrio un problema al agregar el registro");
+
+            }
+        } catch (Exception e) {
+
+            System.out.println("Error de SQL" + e);
+
+        }
+
+    }
 }

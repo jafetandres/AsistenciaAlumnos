@@ -250,7 +250,7 @@ public class Principal extends javax.swing.JFrame {
         Dimension FrameSize = tomarAsistencia.getSize();
         tomarAsistencia.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
         Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         System.out.println("Fecha: " + dateFormat.format(date));
         TomarAsistencia.txtFecha.setText("" + dateFormat.format(date));
         List<Materia> lista = new ArrayList<>();
