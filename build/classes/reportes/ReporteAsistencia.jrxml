@@ -3,6 +3,12 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="materia" class="java.lang.String"/>
+	<parameter name="docente" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<field name="asistencia" class="java.lang.String"/>
+	<field name="nombres" class="java.lang.String"/>
+	<field name="apellidos" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -40,13 +46,60 @@
 				</textElement>
 				<textFieldExpression><![CDATA[Docente:]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="65" y="13" width="100" height="20" uuid="f131f24d-e634-4efd-be90-69a4534dc05d"/>
+				<textFieldExpression><![CDATA[$P{materia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="65" y="33" width="100" height="20" uuid="dac95ed7-26bc-4877-b75d-e31a600c1ff5"/>
+				<textFieldExpression><![CDATA[$P{docente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="13" width="100" height="20" uuid="11bdf052-0a19-40d7-bf19-6acb72e6e38c"/>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="22" y="2" width="100" height="20" uuid="3044f593-a18d-4eac-89de-1245613cc6d1"/>
+				<textElement>
+					<font fontName="Arial Black" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[APELLIDOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="0" width="100" height="20" uuid="f3f27227-39df-4113-a242-64b47b40d9bd"/>
+				<textElement>
+					<font fontName="Arial Black"/>
+				</textElement>
+				<text><![CDATA[NOMBRES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="359" y="0" width="100" height="20" uuid="87c20f7a-d3b9-4c2c-bd59-bb8bfcf4518e"/>
+				<textElement>
+					<font fontName="Arial Black"/>
+				</textElement>
+				<text><![CDATA[ASISTENCIA]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="22">
+			<textField>
+				<reportElement x="22" y="0" width="100" height="20" uuid="68511cb0-374d-4415-b5a9-b69f1aa53d7c"/>
+				<textFieldExpression><![CDATA[$F{apellidos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="0" width="100" height="20" uuid="83d910fb-58b6-451a-bd53-ca42b3886372"/>
+				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="359" y="0" width="100" height="20" uuid="e5763dd7-0bbe-44a2-9fad-057460b6a5dd"/>
+				<textFieldExpression><![CDATA[$F{asistencia}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>

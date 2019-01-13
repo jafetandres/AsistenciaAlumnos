@@ -10,10 +10,14 @@ import controladores.ControladorAlumno;
 import controladores.ControladorDocente;
 import controladores.ControladorMateria;
 import entidades.Alumno;
+import entidades.Asistencia;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
@@ -241,6 +245,21 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
                     controladorDocente.buscarCodigoDocente(nombres, apellidos), Integer.parseInt("" + tablaAlumnos.getValueAt(i, 0)), estado);
 
         }
+
+        List resultados = new ArrayList();
+        Alumno alumno;
+        Asistencia asistencia;
+
+        resultados.clear();
+
+        for (int i = 0; i < tablaAlumnos.getRowCount(); i++) {
+            
+        }
+        
+        Map map=new HashMap();
+        JasperPrint jprint;
+        
+    
 
 
     }//GEN-LAST:event_btnTomarAsistenciaActionPerformed
