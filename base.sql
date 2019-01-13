@@ -81,10 +81,11 @@ DROP TABLE IF EXISTS `Asistencia`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Asistencia` (
   `codigo` int(11) NOT NULL,
-  `fecha` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha` date NOT NULL,
   `codigomateria` int(11) NOT NULL,
   `codigodocente` int(11) NOT NULL,
   `codigoalumno` int(11) NOT NULL,
+  `estado` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`),
   KEY `FK_MATE_idx` (`codigomateria`),
   KEY `FK_DOC_idx` (`codigodocente`),
@@ -101,6 +102,7 @@ CREATE TABLE `Asistencia` (
 
 LOCK TABLES `Asistencia` WRITE;
 /*!40000 ALTER TABLE `Asistencia` DISABLE KEYS */;
+INSERT INTO `Asistencia` VALUES (1,'2019-01-13',2,1,11,'PRESENTE'),(2,'2019-01-13',2,1,12,'FALTA'),(3,'2019-01-13',2,1,13,'PRESENTE'),(4,'2019-01-13',2,1,11,'PRESENTE'),(5,'2019-01-13',2,1,12,'FALTA'),(6,'2019-01-13',2,1,13,'FALTA');
 /*!40000 ALTER TABLE `Asistencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,4 +195,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-13  4:34:57
+-- Dump completed on 2019-01-13 16:49:45
