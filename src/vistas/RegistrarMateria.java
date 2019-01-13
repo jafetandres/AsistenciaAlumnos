@@ -103,9 +103,8 @@ public class RegistrarMateria extends javax.swing.JInternalFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
        
-        ControladorAdministrador cA=new ControladorAdministrador();
-   
-        cA.registrarMateria( txtNombre.getText(), Integer.parseInt(txtNumCreditos.getText()));
+        ControladorAdministrador controladorAdministrador=new ControladorAdministrador();
+        controladorAdministrador.registrarMateria(controladorAdministrador.ultimoCodigo("Materia")+1, txtNombre.getText(), Integer.parseInt(txtNumCreditos.getText()));
         
     }//GEN-LAST:event_btnRegistrarActionPerformed
 

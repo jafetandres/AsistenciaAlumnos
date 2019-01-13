@@ -14,23 +14,11 @@ import javax.swing.JOptionPane;
  * @author jafetandresgalvezquezada
  */
 public class Administrador {
-    
+
     private int codigo;
     private String nombres;
     private String apellidos;
     private String correo;
-
-
-    
-    public Alumno registrarAlumno(int codigo, String nombres, String apellidos,String correoRepresentante,ArrayList<Materia> listaMaterias){
-        
-        Alumno alumno=new Alumno(codigo, nombres, apellidos, correoRepresentante, listaMaterias);
-        return alumno;
-    }
-    
-   
-    
-    
 
     public int getCodigo() {
         return codigo;
@@ -68,7 +56,5 @@ public class Administrador {
     public String toString() {
         return "Administrador{" + "codigo=" + codigo + ", nombres=" + nombres + ", apellidos=" + apellidos + ", correo=" + correo + '}';
     }
-    
-    
-    
+
 }

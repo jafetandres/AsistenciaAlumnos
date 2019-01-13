@@ -13,19 +13,10 @@ import java.util.ArrayList;
  */
 public class Alumno {
 
-    private int codigo;
-    private String nombres;
-    private String apellidos;
-    private String correoRepresentante;
-    private ArrayList<Materia> listaMaterias;
-
-    public Alumno(int codigo, String nombres, String apellidos, String correoRepresentante, ArrayList<Materia> listaMaterias) {
-        this.codigo = codigo;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.correoRepresentante = correoRepresentante;
-        this.listaMaterias = listaMaterias;
-    }
+    public int codigo;
+    public String nombres;
+    public String apellidos;
+    public String correoRepresentante;
 
     public int getCodigo() {
         return codigo;
@@ -59,17 +50,9 @@ public class Alumno {
         this.correoRepresentante = correoRepresentante;
     }
 
-    public ArrayList<Materia> getListaMaterias() {
-        return listaMaterias;
-    }
-
-    public void setListaMaterias(ArrayList<Materia> listaMaterias) {
-        this.listaMaterias = listaMaterias;
-    }
-
     @Override
     public String toString() {
-        return "Alumno{" + "codigo=" + codigo + ", nombres=" + nombres + ", apellidos=" + apellidos + ", correoRepresentante=" + correoRepresentante + ", listaMaterias=" + listaMaterias + '}';
+        return "Alumno{" + "codigo=" + codigo + ", nombres=" + nombres + ", apellidos=" + apellidos + ", correoRepresentante=" + correoRepresentante + '}';
     }
 
 }

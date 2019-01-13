@@ -10,15 +10,10 @@ package entidades;
  * @author jafetandresgalvezquezada
  */
 public class Materia {
-    private int codigo;
-    private String nombre;
-    private int numCreditos;
 
-    public Materia(int codigo, String nombre, int numCreditos) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.numCreditos = numCreditos;
-    }
+    public int codigo;
+    public String nombre;
+    public int numCreditos;
 
     public int getCodigo() {
         return codigo;

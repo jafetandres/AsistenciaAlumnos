@@ -5,7 +5,6 @@
  */
 package controladores;
 
-import entidades.Alumno;
 import entidades.Materia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,36 +16,34 @@ import java.util.List;
  *
  * @author jafetandresgalvezquezada
  */
-public class ControladorAlumno {
+public class ControladorMateria {
 
     private Statement s = null;
     private ResultSet rs = null;
     ControladorConexion controladorConexion = new ControladorConexion();
 
-    public List<Alumno> listarAlumnos(String nombreMateria) {
+    public List<Materia> listarMaterias() {
 
-        List<Alumno> lista = new ArrayList<>();
+        List<Materia> lista = new ArrayList<>();
         try {
             controladorConexion.conectar();
             s = controladorConexion.conexion.createStatement();
-            String sql = "SELECT Alumno.codigo,Alumno.apellidos,Alumno.nombres FROM Alumno "
-                    + "WHERE Alumno.codigo IN (SELECT AlumnoMateria.codigoalumno FROM AlumnoMateria "
-                    + "WHERE AlumnoMateria.codigomateria=(SELECT Materia.codigo FROM Materia "
-                    + "WHERE Materia.nombre='"+nombreMateria+"'));";
-
+            String sql = "SELECT * FROM Materia ";
             rs = s.executeQuery(sql);
             while (rs.next()) {
-                Alumno alumno = new Alumno();
-                 alumno.setCodigo(rs.getInt("codigo"));
-                alumno.setApellidos(rs.getString("apellidos"));
-                alumno.setNombres(rs.getString("nombres"));
+                Materia materia = new Materia();
+                materia.setCodigo(rs.getInt("codigo"));
+                materia.setNombre(rs.getString("nombre"));
+                materia.setNumCreditos(rs.getInt("numcreditos"));
 
-                lista.add(alumno);
+                lista.add(materia);
             }
         } catch (SQLException ex) {
             System.out.println("Error de SQL" + ex);
         }
         return lista;
     }
+    
+    
 
 }

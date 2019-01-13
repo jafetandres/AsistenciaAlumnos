@@ -5,12 +5,19 @@
  */
 package vistas;
 
-import controladores.Clase_CellEditor;
-import controladores.Clase_CellRender;
-import controladores.LlenarTabla;
+import controladores.ControladorAlumno;
+import controladores.ControladorMateria;
 import entidades.Administrador;
+import entidades.Alumno;
+import entidades.Materia;
 import java.awt.Dimension;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,15 +25,59 @@ import javax.swing.table.DefaultTableModel;
  * @author jafetandresgalvezquezada
  */
 public class Principal extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Principal
-     */
+    
+    ControladorMateria controladorMateria = new ControladorMateria();
+    ControladorAlumno controladorAlumno = new ControladorAlumno();
+    
     public Principal() {
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
+        
+    }
+    
+    public void llenarTablaMaterias(JTable tablaMaterias) {
+        DefaultTableModel model = new DefaultTableModel() {
+            public Class<?> getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                        return Boolean.class;
+                    case 1:
+                        return String.class;
+                    case 2:
+                        return String.class;
+                    case 3:
+                        return String.class;
+                    case 4:
+                        return String.class;
+                    
+                    default:
+                        return String.class;
+                }
+            }
+        };
 
+        //ASSIGN THE MODEL TO TABLE
+        tablaMaterias.setModel(model);
+        
+        model.addColumn("Seleccionar");
+        model.addColumn("Codigo");
+        model.addColumn("Nombre");
+        model.addColumn("Numero de Creditos");
+        
+        List<Materia> lista = new ArrayList<>();
+        lista = controladorMateria.listarMaterias();
+
+        //THE ROW
+        for (int i = 0; i <= lista.size() - 1; i++) {
+            
+            model.addRow(new Object[0]);
+            model.setValueAt(false, i, 0);
+            model.setValueAt(lista.get(i).codigo, i, 1);
+            model.setValueAt(lista.get(i).nombre, i, 2);
+            model.setValueAt(lista.get(i).numCreditos, i, 3);
+            
+        }
     }
 
     /**
@@ -164,44 +215,22 @@ public class Principal extends javax.swing.JFrame {
 
     private void submenuRegistarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenuRegistarAlumnoActionPerformed
         RegistrarAlumno registrarAlumno = new RegistrarAlumno();
-
-        LlenarTabla llenarTabla = new LlenarTabla();
         panel.add(registrarAlumno);
         Dimension desktopSize = Principal.panel.getSize();
         Dimension FrameSize = registrarAlumno.getSize();
         registrarAlumno.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        DefaultTableModel modelo = new DefaultTableModel();
-        registrarAlumno.tablaMaterias.setModel(modelo);
-        modelo.addColumn("Selec");
-        modelo.addColumn("Codigo");
-        modelo.addColumn("Nombre");
-
-        //se crea el JCheckBox en la columna indicada en getColum(cuenta desde 0)
-        registrarAlumno.tablaMaterias.getColumnModel().getColumn(0).setCellEditor(new Clase_CellEditor());
-        registrarAlumno.tablaMaterias.getColumnModel().getColumn(0).setCellRenderer(new Clase_CellRender());
-        llenarTabla.llenar_tabla(3, 1, modelo, registrarAlumno.tablaMaterias);
+        llenarTablaMaterias(RegistrarAlumno.tablaMaterias);
         registrarAlumno.setVisible(true);
 
     }//GEN-LAST:event_submenuRegistarAlumnoActionPerformed
 
     private void submenuRegistrarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenuRegistrarDocenteActionPerformed
-       RegistrarDocente registrarDocente = new RegistrarDocente();
-
-        LlenarTabla llenarTabla = new LlenarTabla();
+        RegistrarDocente registrarDocente = new RegistrarDocente();
         panel.add(registrarDocente);
         Dimension desktopSize = Principal.panel.getSize();
         Dimension FrameSize = registrarDocente.getSize();
         registrarDocente.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        DefaultTableModel modelo = new DefaultTableModel();
-        registrarDocente.tablaMaterias.setModel(modelo);
-        modelo.addColumn("Selec");
-        modelo.addColumn("Codigo");
-        modelo.addColumn("Nombre");
-
-        //se crea el JCheckBox en la columna indicada en getColum(cuenta desde 0)
-        registrarDocente.tablaMaterias.getColumnModel().getColumn(0).setCellEditor(new Clase_CellEditor());
-        registrarDocente.tablaMaterias.getColumnModel().getColumn(0).setCellRenderer(new Clase_CellRender());
-        llenarTabla.llenar_tabla(3, 1, modelo, registrarDocente.tablaMaterias);
+        llenarTablaMaterias(RegistrarDocente.tablaMaterias);
         registrarDocente.setVisible(true);
     }//GEN-LAST:event_submenuRegistrarDocenteActionPerformed
 
@@ -215,7 +244,25 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_submenuRegistrarMateriaActionPerformed
 
     private void submenuTomarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenuTomarAsistenciaActionPerformed
-        // TODO add your handling code here:
+        TomarAsistencia tomarAsistencia = new TomarAsistencia();
+        panel.add(tomarAsistencia);
+        Dimension desktopSize = Principal.panel.getSize();
+        Dimension FrameSize = tomarAsistencia.getSize();
+        tomarAsistencia.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println("Fecha: " + dateFormat.format(date));
+        TomarAsistencia.txtFecha.setText("" + dateFormat.format(date));
+        List<Materia> lista = new ArrayList<>();
+        lista = controladorMateria.listarMaterias();
+        
+        for (int i = 0; i <= lista.size() - 1; i++) {
+            
+            TomarAsistencia.cmbMaterias.addItem(lista.get(i).nombre);
+            
+        }
+        
+        tomarAsistencia.setVisible(true);
     }//GEN-LAST:event_submenuTomarAsistenciaActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
