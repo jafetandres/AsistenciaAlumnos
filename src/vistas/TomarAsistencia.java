@@ -17,9 +17,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
@@ -299,12 +313,62 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
         map.put("fecha", txtFecha.getText());
 
         try {
-            System.out.println("ubicacion: " + urlActual + "/src/reportes/ReporteAsistencia.jasper");
+
             jprint = JasperFillManager.fillReport(urlActual + "/src/reportes/ReporteAsistencia.jasper", map, new JRBeanCollectionDataSource(resultados));
 
             JasperExportManager.exportReportToPdfFile(jprint, urlActual + "/src/reportes/rep1.pdf");
         } catch (JRException ex) {
             System.out.println("erro ireport" + ex);
+        }
+
+        try {
+
+            Properties props = new Properties();
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.setProperty("mail.smtp.starttls.enable", "true");
+            props.setProperty("mail.smtp.port", "587");
+            props.setProperty("mail.smtp.user", "reportesasistenciaups@gmail.com");
+            props.setProperty("mail.smtp.auth", "true");
+
+            Session session = Session.getDefaultInstance(props, null);
+            session.setDebug(true);
+
+            String[] correosRepresentantes = new String[tablaAlumnos.getRowCount()];
+            for (int i = 0; i < correosRepresentantes.length; i++) {
+
+                System.out.println("tamano" + correosRepresentantes.length);
+                System.out.println("" + controladorAlumno.listarCorreos(Integer.parseInt("" + tablaAlumnos.getValueAt(i, 0))));
+                correosRepresentantes[i] = controladorAlumno.listarCorreos(Integer.parseInt("" + tablaAlumnos.getValueAt(i, 0)));
+                System.out.println("correos" + correosRepresentantes[i]);
+                BodyPart texto = new MimeBodyPart();
+                texto.setText("Reporte Asistencia UPS");
+                BodyPart adjunto = new MimeBodyPart();
+                adjunto.setDataHandler(new DataHandler(new FileDataSource(urlActual + "/src/reportes/rep1.pdf")));
+                adjunto.setFileName("rep1.pdf");
+                MimeMultipart multiParte = new MimeMultipart();
+                multiParte.addBodyPart(adjunto);
+                multiParte.addBodyPart(texto);
+                MimeMessage message = new MimeMessage(session);
+
+                message.setFrom(new InternetAddress("reportesasistenciaups@gmail.com"));
+
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(correosRepresentantes[i]));
+
+                message.setSubject("Reporte Asistencia UPS");
+                message.setContent(multiParte);
+
+                Transport t = session.getTransport("smtp");
+                System.out.println("reporte enviado");
+                t.connect("reportesasistenciaups@gmail.com", "prueba123");
+
+                t.sendMessage(message, message.getAllRecipients());
+                t.close();
+
+            }
+        } catch (NoSuchProviderException ex) {
+            System.out.println("error compruebe su conexion1" + ex);
+        } catch (MessagingException ex) {
+            System.out.println("error compruebe su conexion2" + ex);
         }
 
     }//GEN-LAST:event_btnTomarAsistenciaActionPerformed

@@ -32,12 +32,12 @@ public class ControladorAlumno {
             String sql = "SELECT Alumno.codigo,Alumno.apellidos,Alumno.nombres FROM Alumno "
                     + "WHERE Alumno.codigo IN (SELECT AlumnoMateria.codigoalumno FROM AlumnoMateria "
                     + "WHERE AlumnoMateria.codigomateria=(SELECT Materia.codigo FROM Materia "
-                    + "WHERE Materia.nombre='"+nombreMateria+"'));";
+                    + "WHERE Materia.nombre='" + nombreMateria + "'));";
 
             rs = s.executeQuery(sql);
             while (rs.next()) {
                 Alumno alumno = new Alumno();
-                 alumno.setCodigo(rs.getInt("codigo"));
+                alumno.setCodigo(rs.getInt("codigo"));
                 alumno.setApellidos(rs.getString("apellidos"));
                 alumno.setNombres(rs.getString("nombres"));
 
@@ -49,4 +49,23 @@ public class ControladorAlumno {
         return lista;
     }
 
+    public String listarCorreos(int codigoAlumno) {
+        String correoRepresentante = "";
+        System.out.println("codigo alumno: " + codigoAlumno);
+        try {
+            controladorConexion.conectar();
+            s = controladorConexion.conexion.createStatement();
+            rs = s.executeQuery("SELECT correorepresentante FROM Alumno WHERE codigo=" + codigoAlumno + "");
+
+            while (rs.next()) {
+                correoRepresentante = rs.getString(1);
+
+            }
+        } catch (Exception e) {
+            System.out.println("Error de SQL" + e);
+
+        }
+        return correoRepresentante;
+
+    }
 }
