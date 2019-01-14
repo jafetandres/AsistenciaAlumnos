@@ -11,51 +11,25 @@ package entidades;
  */
 public class Asistencia {
     
-    int codigo;
-    String fecha;
-    int codigoMateria;
-    int codigoDocente;
-    int codigoAlumno;
+   
+    String nombresAlumnos;
+    String apellidosAlumnos;
     String estado;
 
-    public int getCodigo() {
-        return codigo;
+    public String getNombresAlumnos() {
+        return nombresAlumnos;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setNombresAlumnos(String nombresAlumnos) {
+        this.nombresAlumnos = nombresAlumnos;
     }
 
-    public String getFecha() {
-        return fecha;
+    public String getApellidosAlumnos() {
+        return apellidosAlumnos;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-
-    public int getCodigoMateria() {
-        return codigoMateria;
-    }
-
-    public void setCodigoMateria(int codigoMateria) {
-        this.codigoMateria = codigoMateria;
-    }
-
-    public int getCodigoDocente() {
-        return codigoDocente;
-    }
-
-    public void setCodigoDocente(int codigoDocente) {
-        this.codigoDocente = codigoDocente;
-    }
-
-    public int getCodigoAlumno() {
-        return codigoAlumno;
-    }
-
-    public void setCodigoAlumno(int codigoAlumno) {
-        this.codigoAlumno = codigoAlumno;
+    public void setApellidosAlumnos(String apellidosAlumnos) {
+        this.apellidosAlumnos = apellidosAlumnos;
     }
 
     public String getEstado() {
@@ -68,9 +42,9 @@ public class Asistencia {
 
     @Override
     public String toString() {
-        return "Asistencia{" + "codigo=" + codigo + ", fecha=" + fecha + ", codigoMateria=" + codigoMateria + ", codigoDocente=" + codigoDocente + ", codigoAlumno=" + codigoAlumno + ", estado=" + estado + '}';
+        return "Asistencia{" + "nombresAlumnos=" + nombresAlumnos + ", apellidosAlumnos=" + apellidosAlumnos + ", estado=" + estado + '}';
     }
     
     
-    
+
 }

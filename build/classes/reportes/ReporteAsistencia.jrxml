@@ -25,39 +25,39 @@
 	</title>
 	<pageHeader>
 		<band height="82" splitType="Stretch">
-			<staticText>
-				<reportElement x="11" y="13" width="100" height="20" uuid="622e7f29-91dd-47b5-9250-81c732f1312a"/>
-				<textElement>
-					<font fontName="AppleMyungjo" size="12" isBold="false" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[Materia:]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="409" y="13" width="100" height="20" uuid="dc0c49f5-0ba9-4965-8c72-14cfc0636eb6"/>
-				<textElement>
-					<font fontName="AppleMyungjo" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[Fecha:]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="11" y="33" width="100" height="20" uuid="07c38756-9c1c-4117-b1d1-337bcd395f9e"/>
-				<textElement>
-					<font fontName="AppleMyungjo" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[Docente:]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="65" y="13" width="100" height="20" uuid="f131f24d-e634-4efd-be90-69a4534dc05d"/>
+				<reportElement x="102" y="12" width="182" height="20" uuid="af3193dd-1128-412b-95f7-9a4f33ba33fb"/>
 				<textFieldExpression><![CDATA[$P{materia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="65" y="33" width="100" height="20" uuid="dac95ed7-26bc-4877-b75d-e31a600c1ff5"/>
+				<reportElement x="102" y="44" width="218" height="20" uuid="c095aa97-d89e-4d7d-a78c-25801d30e9b7"/>
 				<textFieldExpression><![CDATA[$P{docente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="13" width="100" height="20" uuid="11bdf052-0a19-40d7-bf19-6acb72e6e38c"/>
+				<reportElement x="397" y="12" width="136" height="20" uuid="41e89c5b-686d-4e7c-8e25-be263b4456ca"/>
 				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="22" y="12" width="65" height="20" uuid="c41ed2a7-a08e-43cd-867d-bbaf995409cd"/>
+				<textElement>
+					<font fontName="AppleGothic" size="14"/>
+				</textElement>
+				<text><![CDATA[Materia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="44" width="65" height="20" uuid="5e2529b6-4d9e-4c05-91e5-3fb2d3cb7685"/>
+				<textElement>
+					<font fontName="AppleGothic" size="14"/>
+				</textElement>
+				<text><![CDATA[Docente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="12" width="47" height="20" uuid="e51038a0-457b-4c1c-ac61-4e8443fc6865"/>
+				<textElement>
+					<font fontName="AppleGothic" size="14"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>

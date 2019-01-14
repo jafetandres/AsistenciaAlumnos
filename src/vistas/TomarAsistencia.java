@@ -11,13 +11,24 @@ import controladores.ControladorDocente;
 import controladores.ControladorMateria;
 import entidades.Alumno;
 import entidades.Asistencia;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.swing.JRViewer;
 
 /**
  *
@@ -92,7 +103,7 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         txtFecha = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtDocente = new javax.swing.JTextField();
         cmbMaterias = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaAlumnos = new javax.swing.JTable();
@@ -117,11 +128,11 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Docente:");
 
-        jTextField3.setEditable(false);
-        jTextField3.setText("MAURICIO ORTIZ");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtDocente.setEditable(false);
+        txtDocente.setText("MAURICIO ORTIZ");
+        txtDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtDocenteActionPerformed(evt);
             }
         });
 
@@ -167,7 +178,7 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(txtDocente, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
                             .addComponent(cmbMaterias, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(91, 91, 91)
                         .addComponent(jLabel3)
@@ -198,7 +209,7 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73)
@@ -211,9 +222,9 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDocenteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtDocenteActionPerformed
 
     private void cmbMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMateriasActionPerformed
 
@@ -225,11 +236,21 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
 
     private void btnTomarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarAsistenciaActionPerformed
 
+        File directorioActual = new File("");
+
+        String urlActual = "";
+        try {
+            urlActual = directorioActual.getCanonicalPath();
+        } catch (IOException ex) {
+            System.out.println("error directorio" + ex);
+        }
+
         ControladorAdministrador controladorAdministrador = new ControladorAdministrador();
         //int codigoAsistencia = controladorAdministrador.ultimoCodigo("Asistencia") + 1;
         String nombres = "pedro";
         String apellidos = "loja";
         String estado = "";
+        String docente = "pedro loja";
 
         for (int i = 0; i < tablaAlumnos.getRowCount(); i++) {
             int codigoAsistencia = controladorAdministrador.ultimoCodigo("Asistencia") + 1;
@@ -247,20 +268,44 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
         }
 
         List resultados = new ArrayList();
-        Alumno alumno;
+
         Asistencia asistencia;
 
         resultados.clear();
 
         for (int i = 0; i < tablaAlumnos.getRowCount(); i++) {
-            
-        }
-        
-        Map map=new HashMap();
-        JasperPrint jprint;
-        
-    
 
+            if (tablaAlumnos.getValueAt(i, 3).equals(true)) {
+                estado = "PRESENTE";
+
+            } else if (tablaAlumnos.getValueAt(i, 3).equals(false)) {
+                estado = "FALTA";
+            }
+
+            asistencia = new Asistencia();
+            asistencia.setApellidosAlumnos(tablaAlumnos.getValueAt(i, 1).toString());
+            asistencia.setNombresAlumnos(tablaAlumnos.getValueAt(i, 2).toString());
+            asistencia.setEstado(estado);
+
+            resultados.add(asistencia);
+
+        }
+
+        Map map = new HashMap();
+        JasperPrint jprint;
+
+        map.put("materia", cmbMaterias.getSelectedItem());
+        map.put("docente", txtDocente.getText());
+        map.put("fecha", txtFecha.getText());
+
+        try {
+            System.out.println("ubicacion: " + urlActual + "/src/reportes/ReporteAsistencia.jasper");
+            jprint = JasperFillManager.fillReport(urlActual + "/src/reportes/ReporteAsistencia.jasper", map, new JRBeanCollectionDataSource(resultados));
+
+            JasperExportManager.exportReportToPdfFile(jprint, urlActual + "/src/reportes/rep1.pdf");
+        } catch (JRException ex) {
+            System.out.println("erro ireport" + ex);
+        }
 
     }//GEN-LAST:event_btnTomarAsistenciaActionPerformed
 
@@ -274,8 +319,8 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField3;
     public static javax.swing.JTable tablaAlumnos;
+    private javax.swing.JTextField txtDocente;
     public static javax.swing.JTextField txtFecha;
     // End of variables declaration//GEN-END:variables
 }
