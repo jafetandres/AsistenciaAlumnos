@@ -122,16 +122,16 @@ public class ControladorAdministrador {
 
     }
 
-    public void registrarDocente(int codigo, String nombres, String apellidos, String correo) {
+    public void registrarDocente(int codigo, String nombres, String apellidos, String correo,String contrasena) {
 
         try {
             controladorConexion.conectar();
 
             s = controladorConexion.conexion.createStatement();
 
-            int z = s.executeUpdate("INSERT INTO Docente (codigo,nombres,apellidos,correo)"
+            int z = s.executeUpdate("INSERT INTO Docente (codigo,nombres,apellidos,correo,contrasena)"
                     + " VALUES ("
-                    + "" + codigo + ",'" + nombres + "','" + apellidos + "','" + correo + "')");
+                    + "" + codigo + ",'" + nombres + "','" + apellidos + "','" + correo + "','" + contrasena + "')");
 
             if (z == 1) {
                 System.out.println("Se agregó el registro de manera exitosa");
