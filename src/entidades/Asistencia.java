@@ -8,6 +8,8 @@ package entidades;
 /**
  *
  * @author jafetandresgalvezquezada
+ * @author  Katherine Gonzalez
+ * @author Jonathan Uzhca
  */
 public class Asistencia {
     
