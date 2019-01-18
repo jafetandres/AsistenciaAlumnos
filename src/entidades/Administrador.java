@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author jafetandresgalvezquezada
+ * @author  Katherine Gonzalez
+ * @author Jonathan Uzhca
  */
 public class Administrador {
 
