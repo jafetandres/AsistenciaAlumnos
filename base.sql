@@ -18,7 +18,7 @@ USE `Asistencia`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Alumno`
+-- Estructura de la tabla`Alumno`
 --
 
 DROP TABLE IF EXISTS `Alumno`;
@@ -44,7 +44,7 @@ INSERT INTO `Alumno` VALUES (1,'JAFET ANDRES','GALVEZ QUEZADA','CUMITAEM@HOTMAIL
 UNLOCK TABLES;
 
 --
--- Table structure for table `AlumnoMateria`
+-- Estructura de la tabla `AlumnoMateria`
 --
 
 DROP TABLE IF EXISTS `AlumnoMateria`;
@@ -73,7 +73,7 @@ INSERT INTO `AlumnoMateria` VALUES (1,11,2),(2,11,3),(3,12,2),(4,13,1),(5,13,2);
 UNLOCK TABLES;
 
 --
--- Table structure for table `Asistencia`
+-- Estructura de la tabla `Asistencia`
 --
 
 DROP TABLE IF EXISTS `Asistencia`;
@@ -107,7 +107,7 @@ INSERT INTO `Asistencia` VALUES (1,'2019-01-13',2,1,11,'PRESENTE'),(2,'2019-01-1
 UNLOCK TABLES;
 
 --
--- Table structure for table `Docente`
+-- Estructura de tabla `Docente`
 --
 
 DROP TABLE IF EXISTS `Docente`;
@@ -133,7 +133,7 @@ INSERT INTO `Docente` VALUES (1,'pedro','loja','sadwq');
 UNLOCK TABLES;
 
 --
--- Table structure for table `DocenteMateria`
+-- Estructura de la tabla `DocenteMateria`
 --
 
 DROP TABLE IF EXISTS `DocenteMateria`;
@@ -162,7 +162,7 @@ INSERT INTO `DocenteMateria` VALUES (1,1,1),(2,1,2);
 UNLOCK TABLES;
 
 --
--- Table structure for table `Materia`
+-- Estructura de la tabla `Materia`
 --
 
 DROP TABLE IF EXISTS `Materia`;
