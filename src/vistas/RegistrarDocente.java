@@ -42,7 +42,7 @@ public class RegistrarDocente extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtNombres = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtContrasena = new javax.swing.JTextField();
 
         jLabel4.setText("AGREGAR MATERIAS");
 
@@ -87,10 +87,9 @@ public class RegistrarDocente extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Contraseñ");
 
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtContrasena.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtContrasenaActionPerformed(evt);
             }
         });
 
@@ -119,7 +118,7 @@ public class RegistrarDocente extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel3)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtNombres)
                                 .addComponent(txtApellidos)
@@ -147,7 +146,7 @@ public class RegistrarDocente extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(34, 34, 34)
@@ -164,7 +163,7 @@ public class RegistrarDocente extends javax.swing.JInternalFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         ControladorAdministrador controladorAdministrador = new ControladorAdministrador();
         int codigoDocente = controladorAdministrador.ultimoCodigo("Docente") + 1;
-        controladorAdministrador.registrarDocente(codigoDocente, txtNombres.getText(), txtApellidos.getText(), txtCorreo.getText());
+        controladorAdministrador.registrarDocente(codigoDocente, txtNombres.getText(), txtApellidos.getText(), txtCorreo.getText(), txtContrasena.getText());
 
         for (int i = 0; i < tablaMaterias.getRowCount(); i++) {
 
@@ -174,15 +173,17 @@ public class RegistrarDocente extends javax.swing.JInternalFrame {
             }
 
         }
+
+        controladorAdministrador.registrarUsuario(controladorAdministrador.ultimoCodigo("Usuario") + 1, codigoDocente, 0, "Docente");
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContrasenaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtContrasenaActionPerformed
 
     private void txtApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidosActionPerformed
         // TODO add your handling code here:
@@ -198,9 +199,9 @@ public class RegistrarDocente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     public static javax.swing.JTable tablaMaterias;
     private javax.swing.JTextField txtApellidos;
+    private javax.swing.JTextField txtContrasena;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombres;
     // End of variables declaration//GEN-END:variables

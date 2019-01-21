@@ -318,7 +318,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenu menuAlumno;
     private javax.swing.JMenu menuDocente;
-    private javax.swing.JMenu menuHerramientas;
+    public static javax.swing.JMenu menuHerramientas;
     private javax.swing.JMenu menuMateria;
     public static javax.swing.JDesktopPane panel;
     private javax.swing.JMenuItem submenuRegistarAlumno;

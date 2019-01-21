@@ -122,7 +122,7 @@ public class ControladorAdministrador {
 
     }
 
-    public void registrarDocente(int codigo, String nombres, String apellidos, String correo,String contrasena) {
+    public void registrarDocente(int codigo, String nombres, String apellidos, String correo, String contrasena) {
 
         try {
             controladorConexion.conectar();
@@ -193,6 +193,60 @@ public class ControladorAdministrador {
             System.out.println("Error de SQL en registrar asistencia" + e);
 
         }
+
+    }
+
+    public void registrarUsuario(int codigo, int codigoDocente, int codigoAdministrador, String tipoUsuario) {
+
+        try {
+            controladorConexion.conectar();
+
+            s = controladorConexion.conexion.createStatement();
+
+            int z = s.executeUpdate("INSERT INTO Usuario (codigo,codigodocente,codigoadministrador,tipousuario)"
+                    + " VALUES ("
+                    + "" + codigo + "," + codigoDocente + "," + codigoAdministrador + ",'" + tipoUsuario + "')");
+
+            if (z == 1) {
+                System.out.println("Se agregó el registro de manera exitosa");
+            } else {
+                System.out.println("Ocurrio un problema al agregar el registro");
+
+            }
+        } catch (Exception e) {
+
+            System.out.println("Error de SQL en registrar asistencia" + e);
+
+        }
+
+    }
+
+    public String compararUsuario(int codigoDocente) {
+
+        String tipo = "";
+        try {
+            controladorConexion.conectar();
+            s = controladorConexion.conexion.createStatement();
+            rs = s.executeQuery("SELECT tipousuario FROM Usuario "
+                    + "WHERE codigodocente ='" + codigoDocente + "' ");
+
+        } catch (Exception e) {
+            System.out.println("Error de conexion" + e);
+        }
+
+        String tip;
+
+        try {
+            while (rs.next()) {
+                tip = rs.getString(1);
+                tipo = tip;
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Problema al imprimir la información en buscarCodigoDocente.");
+        }
+        return tipo;
 
     }
 }

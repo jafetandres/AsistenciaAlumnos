@@ -5,15 +5,19 @@
  */
 package vistas;
 
+import controladores.ControladorAdministrador;
+import controladores.ControladorDocente;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jafetandresgalvezquezada
  */
 public class IniciarSesion extends javax.swing.JFrame {
 
-    /**
-     * Creates new form IniciarSesion
-     */
+    ControladorAdministrador controladorAdministrador = new ControladorAdministrador();
+    ControladorDocente controladorDocente = new ControladorDocente();
+
     public IniciarSesion() {
         initComponents();
     }
@@ -48,6 +52,11 @@ public class IniciarSesion extends javax.swing.JFrame {
         });
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Correo Electronico:");
 
@@ -103,8 +112,31 @@ public class IniciarSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-    
+        Principal principal = new Principal();
+        char clave[] = txtContrasena.getPassword();
+
+        String clavedef = new String(clave);
+
+        String tipoUsuario = controladorAdministrador.compararUsuario(controladorDocente.buscarCodigoDocenteLogin(txtCorreoElectronico.getText()));
+
+        if (tipoUsuario.equals("Docente") && txtCorreoElectronico.getText().equals(controladorDocente.buscarCorreoDocenteLogin(txtCorreoElectronico.getText())) && clavedef.equals(controladorDocente.buscarContrasenaDocenteLogin(txtCorreoElectronico.getText()))) {
+            this.dispose();
+
+            principal.setVisible(true);
+
+            Principal.menuHerramientas.enable(false);
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Acceso denegado:\n"
+                    + "Por favor ingrese un usuario y/o contraseña correctos", "Acceso denegado",
+                    JOptionPane.ERROR_MESSAGE);
+
+        }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+      System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
