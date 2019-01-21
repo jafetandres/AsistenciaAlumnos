@@ -6,6 +6,7 @@
 package controladores;
 
 import entidades.Alumno;
+import entidades.AsistenciaPorFecha;
 import entidades.Materia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -68,6 +69,61 @@ public class ControladorAlumno {
         return correoRepresentante;
 
     }
-    
-    
+
+    public List<AsistenciaPorFecha> listaReportePorFecha(String fecha, int codigoMateria) {
+        System.out.println("fecha: "+fecha+"codigo materia: "+codigoMateria);
+
+        List<AsistenciaPorFecha> lista = new ArrayList<>();
+        try {
+            controladorConexion.conectar();
+            s = controladorConexion.conexion.createStatement();
+            String sql = "SELECT DISTINCT Asistencia.fecha, Alumno.nombres, Alumno.apellidos, Asistencia.estado FROM Asistencia,Alumno WHERE Asistencia.fecha='" + fecha + "' AND Asistencia.codigomateria=" + codigoMateria + " AND Alumno.codigo IN(select Asistencia.codigoalumno from Asistencia where Asistencia.fecha='" + fecha + "')";
+
+            
+            
+            rs = s.executeQuery(sql);
+            while (rs.next()) {
+                AsistenciaPorFecha asistenciaPorFecha = new AsistenciaPorFecha();
+                asistenciaPorFecha.setFecha(rs.getString("fecha"));
+                asistenciaPorFecha.setNombres(rs.getString("nombres"));
+                asistenciaPorFecha.setApellidos(rs.getString("apellidos"));
+                asistenciaPorFecha.setEstado(rs.getString("estado"));
+
+                lista.add(asistenciaPorFecha);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error de SQL ultima" + ex);
+        }
+        return lista;
+    }
+
+    public int buscarCodigoAlumno(String nombres, String apellidos) {
+
+        int codigo = 0;
+        try {
+            controladorConexion.conectar();
+            s = controladorConexion.conexion.createStatement();
+            rs = s.executeQuery("SELECT codigo FROM Alumno "
+                    + "WHERE nombres='" + nombres + "' AND apellidos='" + apellidos + "'");
+
+        } catch (Exception e) {
+            System.out.println("Error de conexion" + e);
+        }
+
+        int cod;
+
+        try {
+            while (rs.next()) {
+                cod = rs.getInt(1);
+                codigo = cod;
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Problema al imprimir la información en buscarCodigoDocente.");
+        }
+        return codigo;
+
+    }
+
 }

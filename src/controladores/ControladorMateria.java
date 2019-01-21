@@ -28,7 +28,7 @@ public class ControladorMateria {
         try {
             controladorConexion.conectar();
             s = controladorConexion.conexion.createStatement();
-            String sql = "SELECT * FROM Materia WHERE codigo IN (SELECT codigomateria FROM DocenteMateria WHERE codigodocente="+codigoDocente+")";
+            String sql = "SELECT * FROM Materia WHERE codigo IN (SELECT codigomateria FROM DocenteMateria WHERE codigodocente=" + codigoDocente + ")";
             rs = s.executeQuery(sql);
             while (rs.next()) {
                 Materia materia = new Materia();
@@ -43,15 +43,15 @@ public class ControladorMateria {
         }
         return lista;
     }
-    
+
     public int buscarCodigoMateria(String nomMateria) {
-        System.out.println("nombre materia:"+nomMateria);
+        System.out.println("nombre materia:" + nomMateria);
 
         int codigo = 0;
         try {
             controladorConexion.conectar();
             s = controladorConexion.conexion.createStatement();
-            rs = s.executeQuery("SELECT codigo FROM Materia WHERE nombre ='"+nomMateria+"'");
+            rs = s.executeQuery("SELECT codigo FROM Materia WHERE nombre ='" + nomMateria + "'");
 
         } catch (Exception e) {
             System.out.println("Error de conexion en buscarCodigoMateria" + e);
@@ -72,6 +72,7 @@ public class ControladorMateria {
         return codigo;
 
     }
+
     public List<Materia> listarTodasMaterias() {
 
         List<Materia> lista = new ArrayList<>();

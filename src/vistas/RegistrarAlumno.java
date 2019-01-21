@@ -46,6 +46,8 @@ public class RegistrarAlumno extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaMaterias = new javax.swing.JTable();
 
+        setTitle("Registrar Alumno");
+
         jLabel1.setText("Nombres:");
 
         jLabel2.setText("Apellidos:");

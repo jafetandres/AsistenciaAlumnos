@@ -345,7 +345,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void submenuReportePorAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenuReportePorAlumnoActionPerformed
 
-        ReportePorAlumno reportePorAlumno = new ReportePorAlumno();
+        ReportePorFecha reportePorAlumno = new ReportePorFecha(nombresCompletosDocente);
         panel.add(reportePorAlumno);
         Dimension desktopSize = Principal.panel.getSize();
         Dimension FrameSize = reportePorAlumno.getSize();
@@ -357,7 +357,7 @@ public class Principal extends javax.swing.JFrame {
 
         for (int i = 0; i <= lista.size() - 1; i++) {
 
-            ReportePorAlumno.cmbMaterias.addItem(lista.get(i).nombre);
+            ReportePorFecha.cmbMaterias.addItem(lista.get(i).nombre);
 
         }
          reportePorAlumno.setVisible(true);
