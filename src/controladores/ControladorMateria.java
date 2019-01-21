@@ -22,13 +22,13 @@ public class ControladorMateria {
     private ResultSet rs = null;
     ControladorConexion controladorConexion = new ControladorConexion();
 
-    public List<Materia> listarMaterias() {
+    public List<Materia> listarMaterias(int codigoDocente) {
 
         List<Materia> lista = new ArrayList<>();
         try {
             controladorConexion.conectar();
             s = controladorConexion.conexion.createStatement();
-            String sql = "SELECT * FROM Materia ";
+            String sql = "SELECT * FROM Materia WHERE codigo IN (SELECT codigomateria FROM DocenteMateria WHERE codigodocente="+codigoDocente+")";
             rs = s.executeQuery(sql);
             while (rs.next()) {
                 Materia materia = new Materia();
@@ -71,6 +71,27 @@ public class ControladorMateria {
         }
         return codigo;
 
+    }
+    public List<Materia> listarTodasMaterias() {
+
+        List<Materia> lista = new ArrayList<>();
+        try {
+            controladorConexion.conectar();
+            s = controladorConexion.conexion.createStatement();
+            String sql = "SELECT * FROM Materia ";
+            rs = s.executeQuery(sql);
+            while (rs.next()) {
+                Materia materia = new Materia();
+                materia.setCodigo(rs.getInt("codigo"));
+                materia.setNombre(rs.getString("nombre"));
+                materia.setNumCreditos(rs.getInt("numcreditos"));
+
+                lista.add(materia);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error de SQL" + ex);
+        }
+        return lista;
     }
 
 }

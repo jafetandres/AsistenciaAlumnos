@@ -53,17 +53,21 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
     ControladorAlumno controladorAlumno = new ControladorAlumno();
     ControladorMateria controladorMateria = new ControladorMateria();
     ControladorDocente controladorDocente = new ControladorDocente();
-   String nombresCompletosDocente;
+    static String nombresDocente ;
+    static String apellidosDocente ;
 
-    public TomarAsistencia(String nombresCompletosDocente) {
-        this.nombresCompletosDocente = nombresCompletosDocente;
+    public TomarAsistencia(String nombresDocente, String apellidosDocente) {
+       
+        this.nombresDocente = nombresDocente;
+        this.apellidosDocente = apellidosDocente;
         initComponents();
     }
 
     public TomarAsistencia() {
+
+        initComponents();
     }
 
-    
     public void llenarTablaAlumnos(JTable tablaAlumnos) {
         DefaultTableModel model = new DefaultTableModel() {
             public Class<?> getColumnClass(int column) {
@@ -117,7 +121,7 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         btnTomarAsistencia = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -128,6 +132,8 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaAlumnos = new javax.swing.JTable();
 
+        setTitle("Tomar Asistencia");
+
         btnTomarAsistencia.setText("Tomar Asistencia");
         btnTomarAsistencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,10 +141,15 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
-        jLabel1.setText("Asistencia");
+        jLabel1.setText("ASIES");
 
         jLabel2.setText("Materia:");
 
@@ -189,37 +200,39 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
                         .addGap(168, 168, 168)
                         .addComponent(btnTomarAsistencia)
                         .addGap(39, 39, 39)
-                        .addComponent(jButton2))
+                        .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDocente, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                            .addComponent(cmbMaterias, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(91, 91, 91)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(141, 141, 141))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 72, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(278, 278, 278))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(98, 98, 98))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(311, 311, 311))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addGap(36, 36, 36)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
@@ -229,12 +242,12 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
+                .addGap(46, 46, 46)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTomarAsistencia)
-                    .addComponent(jButton2))
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -265,11 +278,9 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
         }
 
         ControladorAdministrador controladorAdministrador = new ControladorAdministrador();
-        //int codigoAsistencia = controladorAdministrador.ultimoCodigo("Asistencia") + 1;
-        String nombres = "pedro";
-        String apellidos = "loja";
+
         String estado = "";
-        String docente = "pedro loja";
+
 
         for (int i = 0; i < tablaAlumnos.getRowCount(); i++) {
             int codigoAsistencia = controladorAdministrador.ultimoCodigo("Asistencia") + 1;
@@ -282,7 +293,7 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
 
             controladorAdministrador.registrarAsistencia(codigoAsistencia, txtFecha.getText(),
                     controladorMateria.buscarCodigoMateria("" + cmbMaterias.getSelectedItem()),
-                    controladorDocente.buscarCodigoDocente(nombres, apellidos), Integer.parseInt("" + tablaAlumnos.getValueAt(i, 0)), estado);
+                    controladorDocente.buscarCodigoDocente(nombresDocente, apellidosDocente), Integer.parseInt("" + tablaAlumnos.getValueAt(i, 0)), estado);
 
         }
 
@@ -341,10 +352,9 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
             String[] correosRepresentantes = new String[tablaAlumnos.getRowCount()];
             for (int i = 0; i < correosRepresentantes.length; i++) {
 
-                System.out.println("tamano" + correosRepresentantes.length);
-                System.out.println("" + controladorAlumno.listarCorreos(Integer.parseInt("" + tablaAlumnos.getValueAt(i, 0))));
+
                 correosRepresentantes[i] = controladorAlumno.listarCorreos(Integer.parseInt("" + tablaAlumnos.getValueAt(i, 0)));
-                System.out.println("correos" + correosRepresentantes[i]);
+                
                 BodyPart texto = new MimeBodyPart();
                 texto.setText("Reporte Asistencia UPS");
                 BodyPart adjunto = new MimeBodyPart();
@@ -378,11 +388,15 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnTomarAsistenciaActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+       this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnTomarAsistencia;
     public static javax.swing.JComboBox<String> cmbMaterias;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

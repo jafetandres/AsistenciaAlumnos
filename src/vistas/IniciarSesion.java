@@ -121,23 +121,31 @@ public class IniciarSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        Principal principal = new Principal();
+
         char clave[] = txtContrasena.getPassword();
 
         String clavedef = new String(clave);
 
-        String tipoUsuario = controladorAdministrador.compararUsuario(controladorDocente.buscarCodigoDocenteLogin(txtCorreoElectronico.getText()));
+        String tipoUsuarioDocente = controladorAdministrador.compararUsuarioDocente(controladorDocente.buscarCodigoDocenteLogin(txtCorreoElectronico.getText()));
+        String tipoUsuarioAdministrador=controladorAdministrador.compararUsuarioAdministrador(controladorAdministrador.buscarCodigoAdministradorLogin(txtCorreoElectronico.getText()));
+        String nombresCompletosDocente[] = controladorDocente.buscarNombreDocenteLogin(txtCorreoElectronico.getText());
 
-        if (tipoUsuario.equals("Docente") && txtCorreoElectronico.getText().equals(controladorDocente.buscarCorreoDocenteLogin(txtCorreoElectronico.getText())) && clavedef.equals(controladorDocente.buscarContrasenaDocenteLogin(txtCorreoElectronico.getText()))) {
+        if (tipoUsuarioDocente.equals("Docente") && txtCorreoElectronico.getText().equals(controladorDocente.buscarCorreoDocenteLogin(txtCorreoElectronico.getText())) && clavedef.equals(controladorDocente.buscarContrasenaDocenteLogin(txtCorreoElectronico.getText()))) {
             this.dispose();
-            final String nombresCompletosDocente = controladorDocente.buscarNombreDocenteLogin(txtCorreoElectronico.getText());
 
+            Principal principal = new Principal(nombresCompletosDocente[0] + nombresCompletosDocente[1], txtCorreoElectronico.getText());
+            TomarAsistencia tomarAsistencia = new TomarAsistencia(nombresCompletosDocente[0], nombresCompletosDocente[1]);
+          
             principal.setVisible(true);
             Principal.menuHerramientas.enable(false);
-            System.out.println("nombres: " + nombresCompletosDocente);
-            TomarAsistencia tomarAsistencia = new TomarAsistencia(nombresCompletosDocente);
 
-        } else {
+        } else if(tipoUsuarioAdministrador.equals("Administrador") && txtCorreoElectronico.getText().equals(controladorAdministrador.buscarCorreoAdministradorLogin(txtCorreoElectronico.getText())) && clavedef.equals(controladorAdministrador.buscarContrasenaAdministradorLogin(txtCorreoElectronico.getText()))){
+            this.dispose();
+            Principal principal=new Principal("Administrador");
+            Principal.menuProcesos.enable(false);
+            principal.setVisible(true);
+            
+        }else{
 
             JOptionPane.showMessageDialog(null, "Acceso denegado:\n"
                     + "Por favor ingrese un usuario y/o contraseña correctos", "Acceso denegado",

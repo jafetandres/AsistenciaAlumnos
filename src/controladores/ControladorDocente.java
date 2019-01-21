@@ -75,6 +75,8 @@ public class ControladorDocente {
         return codigo;
 
     }
+    
+    
 
     public String buscarCorreoDocenteLogin(String correo) {
 
@@ -105,6 +107,7 @@ public class ControladorDocente {
 
     }
     
+
     public String buscarContrasenaDocenteLogin(String correo) {
 
         String contrasenaDocente = "";
@@ -133,10 +136,10 @@ public class ControladorDocente {
         return contrasenaDocente;
 
     }
-    
-    public String buscarNombreDocenteLogin(String correo) {
 
-        String nombresCompletos = "";
+    public String[] buscarNombreDocenteLogin(String correo) {
+
+        String[] nombresCompletos = new String[2];
         try {
             controladorConexion.conectar();
             s = controladorConexion.conexion.createStatement();
@@ -154,8 +157,9 @@ public class ControladorDocente {
             while (rs.next()) {
                 cod1 = rs.getString(1);
                 cod2 = rs.getString(2);
-                
-                nombresCompletos = cod1+" "+cod2;
+
+                nombresCompletos[0] = cod1 + " ";
+                nombresCompletos[1] = cod2;
 
             }
 

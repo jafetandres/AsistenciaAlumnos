@@ -221,7 +221,7 @@ public class ControladorAdministrador {
 
     }
 
-    public String compararUsuario(int codigoDocente) {
+    public String compararUsuarioDocente(int codigoDocente) {
 
         String tipo = "";
         try {
@@ -249,4 +249,120 @@ public class ControladorAdministrador {
         return tipo;
 
     }
+    public String compararUsuarioAdministrador(int codigoAdministrador) {
+
+        String tipo = "";
+        try {
+            controladorConexion.conectar();
+            s = controladorConexion.conexion.createStatement();
+            rs = s.executeQuery("SELECT tipousuario FROM Usuario "
+                    + "WHERE codigoadministrador ='" + codigoAdministrador + "' ");
+
+        } catch (Exception e) {
+            System.out.println("Error de conexion" + e);
+        }
+
+        String tip;
+
+        try {
+            while (rs.next()) {
+                tip = rs.getString(1);
+                tipo = tip;
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Problema al imprimir la información en buscarCodigoDocente.");
+        }
+        return tipo;
+
+    }
+    
+    public String buscarCorreoAdministradorLogin(String correo) {
+
+        String correoAdministrador = "";
+        try {
+            controladorConexion.conectar();
+            s = controladorConexion.conexion.createStatement();
+            rs = s.executeQuery("SELECT correo FROM Administrador "
+                    + "WHERE correo='" + correo + "'");
+
+        } catch (Exception e) {
+            System.out.println("Error de conexion" + e);
+        }
+
+        String cod;
+
+        try {
+            while (rs.next()) {
+                cod = rs.getString(1);
+                correoAdministrador = cod;
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Problema al imprimir la información en buscarCodigoDocente.");
+        }
+        return correoAdministrador;
+
+    }
+    
+    
+    public int buscarCodigoAdministradorLogin(String correo) {
+
+        int codigo = 0;
+        try {
+            controladorConexion.conectar();
+            s = controladorConexion.conexion.createStatement();
+            rs = s.executeQuery("SELECT codigo FROM Administrador "
+                    + "WHERE correo='" + correo + "'");
+
+        } catch (Exception e) {
+            System.out.println("Error de conexion" + e);
+        }
+
+        int cod;
+
+        try {
+            while (rs.next()) {
+                cod = rs.getInt(1);
+                codigo = cod;
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Problema al imprimir la información en buscarCodigoDocente.");
+        }
+        return codigo;
+
+    }
+    public String buscarContrasenaAdministradorLogin(String correo) {
+
+        String contrasenaDocente = "";
+        try {
+            controladorConexion.conectar();
+            s = controladorConexion.conexion.createStatement();
+            rs = s.executeQuery("SELECT contrasena FROM Administrador "
+                    + "WHERE correo='" + correo + "'");
+
+        } catch (Exception e) {
+            System.out.println("Error de conexion" + e);
+        }
+
+        String cod;
+
+        try {
+            while (rs.next()) {
+                cod = rs.getString(1);
+                contrasenaDocente = cod;
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Problema al imprimir la información en buscarCodigoDocente.");
+        }
+        return contrasenaDocente;
+
+    }
+    
 }

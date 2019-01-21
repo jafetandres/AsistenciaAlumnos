@@ -6,6 +6,7 @@
 package vistas;
 
 import controladores.ControladorAlumno;
+import controladores.ControladorDocente;
 import controladores.ControladorMateria;
 import entidades.Administrador;
 import entidades.Alumno;
@@ -25,17 +26,38 @@ import javax.swing.table.DefaultTableModel;
  * @author jafetandresgalvezquezada
  */
 public class Principal extends javax.swing.JFrame {
-    
+
     ControladorMateria controladorMateria = new ControladorMateria();
     ControladorAlumno controladorAlumno = new ControladorAlumno();
-    
-    public Principal() {
+    ControladorDocente controladorDocente = new ControladorDocente();
+    String nombresCompletosDocente;
+    String correoDocente;
+    static String tipoUsuario;
+
+    public Principal(String nombresCompletosDocente, String correoDocente) {
+        this.nombresCompletosDocente = nombresCompletosDocente;
+        this.correoDocente = correoDocente;
+
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
-        
+
     }
-    
+
+    public Principal(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+        this.setLocationRelativeTo(null);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        initComponents();
+    }
+
+    public Principal() {
+
+        this.setLocationRelativeTo(null);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        initComponents();
+    }
+
     public void llenarTablaMaterias(JTable tablaMaterias) {
         DefaultTableModel model = new DefaultTableModel() {
             public Class<?> getColumnClass(int column) {
@@ -50,33 +72,73 @@ public class Principal extends javax.swing.JFrame {
                         return String.class;
                     case 4:
                         return String.class;
-                    
+
                     default:
                         return String.class;
                 }
             }
         };
 
-        //ASSIGN THE MODEL TO TABLE
         tablaMaterias.setModel(model);
-        
+
         model.addColumn("Seleccionar");
         model.addColumn("Codigo");
         model.addColumn("Nombre");
         model.addColumn("Numero de Creditos");
-        
-        List<Materia> lista = new ArrayList<>();
-        lista = controladorMateria.listarMaterias();
 
-        //THE ROW
+        List<Materia> lista = new ArrayList<>();
+        lista = controladorMateria.listarMaterias(controladorDocente.buscarCodigoDocenteLogin(correoDocente));
+
         for (int i = 0; i <= lista.size() - 1; i++) {
-            
+
             model.addRow(new Object[0]);
             model.setValueAt(false, i, 0);
             model.setValueAt(lista.get(i).codigo, i, 1);
             model.setValueAt(lista.get(i).nombre, i, 2);
             model.setValueAt(lista.get(i).numCreditos, i, 3);
-            
+
+        }
+    }
+
+    public void llenarTablaMaterias1(JTable tablaMaterias) {
+        DefaultTableModel model = new DefaultTableModel() {
+            public Class<?> getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                        return Boolean.class;
+                    case 1:
+                        return String.class;
+                    case 2:
+                        return String.class;
+                    case 3:
+                        return String.class;
+                    case 4:
+                        return String.class;
+
+                    default:
+                        return String.class;
+                }
+            }
+        };
+
+        tablaMaterias.setModel(model);
+
+        model.addColumn("Seleccionar");
+        model.addColumn("Codigo");
+        model.addColumn("Nombre");
+        model.addColumn("Numero de Creditos");
+
+        List<Materia> lista = new ArrayList<>();
+        lista = controladorMateria.listarTodasMaterias();
+
+        for (int i = 0; i <= lista.size() - 1; i++) {
+
+            model.addRow(new Object[0]);
+            model.setValueAt(false, i, 0);
+            model.setValueAt(lista.get(i).codigo, i, 1);
+            model.setValueAt(lista.get(i).nombre, i, 2);
+            model.setValueAt(lista.get(i).numCreditos, i, 3);
+
         }
     }
 
@@ -104,10 +166,10 @@ public class Principal extends javax.swing.JFrame {
         submenuRegistrarDocente = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        menuProcesos = new javax.swing.JMenu();
         submenuTomarAsistencia = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        submenuReportePorAlumno = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -170,7 +232,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuHerramientas);
 
-        jMenu4.setText("Procesos");
+        menuProcesos.setText("Procesos");
 
         submenuTomarAsistencia.setText("Tomar Asistencia");
         submenuTomarAsistencia.addActionListener(new java.awt.event.ActionListener() {
@@ -178,24 +240,24 @@ public class Principal extends javax.swing.JFrame {
                 submenuTomarAsistenciaActionPerformed(evt);
             }
         });
-        jMenu4.add(submenuTomarAsistencia);
+        menuProcesos.add(submenuTomarAsistencia);
 
         jMenu1.setText("Generar Reportes");
 
-        jMenuItem1.setText("Reporte por Alumno");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        submenuReportePorAlumno.setText("Reporte por Alumno");
+        submenuReportePorAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                submenuReportePorAlumnoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(submenuReportePorAlumno);
 
         jMenuItem2.setText("Reporte por Fecha");
         jMenu1.add(jMenuItem2);
 
-        jMenu4.add(jMenu1);
+        menuProcesos.add(jMenu1);
 
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(menuProcesos);
 
         setJMenuBar(jMenuBar1);
 
@@ -214,12 +276,20 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submenuRegistarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenuRegistarAlumnoActionPerformed
+
         RegistrarAlumno registrarAlumno = new RegistrarAlumno();
         panel.add(registrarAlumno);
         Dimension desktopSize = Principal.panel.getSize();
         Dimension FrameSize = registrarAlumno.getSize();
         registrarAlumno.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        llenarTablaMaterias(RegistrarAlumno.tablaMaterias);
+        if (tipoUsuario.equals("Administrador")) {
+            llenarTablaMaterias1(RegistrarAlumno.tablaMaterias);
+
+        } else {
+
+            llenarTablaMaterias(RegistrarAlumno.tablaMaterias);
+        }
+
         registrarAlumno.setVisible(true);
 
     }//GEN-LAST:event_submenuRegistarAlumnoActionPerformed
@@ -230,7 +300,13 @@ public class Principal extends javax.swing.JFrame {
         Dimension desktopSize = Principal.panel.getSize();
         Dimension FrameSize = registrarDocente.getSize();
         registrarDocente.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        llenarTablaMaterias(RegistrarDocente.tablaMaterias);
+        if (tipoUsuario.equals("Administrador")) {
+            llenarTablaMaterias1(RegistrarAlumno.tablaMaterias);
+
+        } else {
+
+            llenarTablaMaterias(RegistrarAlumno.tablaMaterias);
+        }
         registrarDocente.setVisible(true);
     }//GEN-LAST:event_submenuRegistrarDocenteActionPerformed
 
@@ -244,7 +320,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_submenuRegistrarMateriaActionPerformed
 
     private void submenuTomarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenuTomarAsistenciaActionPerformed
-        
+
         TomarAsistencia tomarAsistencia = new TomarAsistencia();
         panel.add(tomarAsistencia);
         Dimension desktopSize = Principal.panel.getSize();
@@ -252,25 +328,40 @@ public class Principal extends javax.swing.JFrame {
         tomarAsistencia.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-       
-  
+        TomarAsistencia.txtDocente.setText(nombresCompletosDocente);
         TomarAsistencia.txtFecha.setText("" + dateFormat.format(date));
-  
+
         List<Materia> lista = new ArrayList<>();
-        lista = controladorMateria.listarMaterias();
-        
+        lista = controladorMateria.listarMaterias(controladorDocente.buscarCodigoDocenteLogin(correoDocente));
+
         for (int i = 0; i <= lista.size() - 1; i++) {
-            
+
             TomarAsistencia.cmbMaterias.addItem(lista.get(i).nombre);
-            
+
         }
-        
+
         tomarAsistencia.setVisible(true);
     }//GEN-LAST:event_submenuTomarAsistenciaActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void submenuReportePorAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenuReportePorAlumnoActionPerformed
+
+        ReportePorAlumno reportePorAlumno = new ReportePorAlumno();
+        panel.add(reportePorAlumno);
+        Dimension desktopSize = Principal.panel.getSize();
+        Dimension FrameSize = reportePorAlumno.getSize();
+        reportePorAlumno.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+       
+
+        List<Materia> lista = new ArrayList<>();
+        lista = controladorMateria.listarMaterias(controladorDocente.buscarCodigoDocenteLogin(correoDocente));
+
+        for (int i = 0; i <= lista.size() - 1; i++) {
+
+            ReportePorAlumno.cmbMaterias.addItem(lista.get(i).nombre);
+
+        }
+         reportePorAlumno.setVisible(true);
+    }//GEN-LAST:event_submenuReportePorAlumnoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -309,9 +400,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -323,10 +412,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu menuDocente;
     public static javax.swing.JMenu menuHerramientas;
     private javax.swing.JMenu menuMateria;
+    public static javax.swing.JMenu menuProcesos;
     public static javax.swing.JDesktopPane panel;
     private javax.swing.JMenuItem submenuRegistarAlumno;
     private javax.swing.JMenuItem submenuRegistrarDocente;
     private javax.swing.JMenuItem submenuRegistrarMateria;
+    private javax.swing.JMenuItem submenuReportePorAlumno;
     private javax.swing.JMenuItem submenuTomarAsistencia;
     // End of variables declaration//GEN-END:variables
 }
