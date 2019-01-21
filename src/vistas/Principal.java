@@ -170,7 +170,6 @@ public class Principal extends javax.swing.JFrame {
         submenuTomarAsistencia = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         submenuReportePorAlumno = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -244,16 +243,13 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu1.setText("Generar Reportes");
 
-        submenuReportePorAlumno.setText("Reporte por Alumno");
+        submenuReportePorAlumno.setText("Reporte por Fecha");
         submenuReportePorAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submenuReportePorAlumnoActionPerformed(evt);
             }
         });
         jMenu1.add(submenuReportePorAlumno);
-
-        jMenuItem2.setText("Reporte por Fecha");
-        jMenu1.add(jMenuItem2);
 
         menuProcesos.add(jMenu1);
 
@@ -401,7 +397,6 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
