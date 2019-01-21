@@ -133,4 +133,36 @@ public class ControladorDocente {
         return contrasenaDocente;
 
     }
+    
+    public String buscarNombreDocenteLogin(String correo) {
+
+        String nombresCompletos = "";
+        try {
+            controladorConexion.conectar();
+            s = controladorConexion.conexion.createStatement();
+            rs = s.executeQuery("SELECT nombres,apellidos FROM Docente "
+                    + "WHERE correo='" + correo + "'");
+
+        } catch (Exception e) {
+            System.out.println("Error de conexion" + e);
+        }
+
+        String cod1;
+        String cod2;
+
+        try {
+            while (rs.next()) {
+                cod1 = rs.getString(1);
+                cod2 = rs.getString(2);
+                
+                nombresCompletos = cod1+" "+cod2;
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Problema al imprimir la información en buscarCodigoDocente.");
+        }
+        return nombresCompletos;
+
+    }
 }

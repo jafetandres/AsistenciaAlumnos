@@ -53,11 +53,17 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
     ControladorAlumno controladorAlumno = new ControladorAlumno();
     ControladorMateria controladorMateria = new ControladorMateria();
     ControladorDocente controladorDocente = new ControladorDocente();
+   String nombresCompletosDocente;
 
-    public TomarAsistencia() {
+    public TomarAsistencia(String nombresCompletosDocente) {
+        this.nombresCompletosDocente = nombresCompletosDocente;
         initComponents();
     }
 
+    public TomarAsistencia() {
+    }
+
+    
     public void llenarTablaAlumnos(JTable tablaAlumnos) {
         DefaultTableModel model = new DefaultTableModel() {
             public Class<?> getColumnClass(int column) {
@@ -143,7 +149,6 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
         jLabel4.setText("Docente:");
 
         txtDocente.setEditable(false);
-        txtDocente.setText("MAURICIO ORTIZ");
         txtDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDocenteActionPerformed(evt);
@@ -384,7 +389,7 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JTable tablaAlumnos;
-    private javax.swing.JTextField txtDocente;
+    public static javax.swing.JTextField txtDocente;
     public static javax.swing.JTextField txtFecha;
     // End of variables declaration//GEN-END:variables
 }

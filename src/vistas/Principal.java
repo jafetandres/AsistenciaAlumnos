@@ -244,6 +244,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_submenuRegistrarMateriaActionPerformed
 
     private void submenuTomarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenuTomarAsistenciaActionPerformed
+        
         TomarAsistencia tomarAsistencia = new TomarAsistencia();
         panel.add(tomarAsistencia);
         Dimension desktopSize = Principal.panel.getSize();
@@ -251,8 +252,10 @@ public class Principal extends javax.swing.JFrame {
         tomarAsistencia.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        System.out.println("Fecha: " + dateFormat.format(date));
+       
+  
         TomarAsistencia.txtFecha.setText("" + dateFormat.format(date));
+  
         List<Materia> lista = new ArrayList<>();
         lista = controladorMateria.listarMaterias();
         
