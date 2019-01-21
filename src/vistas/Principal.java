@@ -189,6 +189,11 @@ public class Principal extends javax.swing.JFrame {
         menuMateria.add(jMenuItem3);
 
         jMenuItem4.setText("Eliminar Materia");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         menuMateria.add(jMenuItem4);
 
         menuHerramientas.add(menuMateria);
@@ -297,11 +302,11 @@ public class Principal extends javax.swing.JFrame {
         Dimension FrameSize = registrarDocente.getSize();
         registrarDocente.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
         if (tipoUsuario.equals("Administrador")) {
-            llenarTablaMaterias1(RegistrarAlumno.tablaMaterias);
+            llenarTablaMaterias1(RegistrarDocente.tablaMaterias);
 
         } else {
 
-            llenarTablaMaterias(RegistrarAlumno.tablaMaterias);
+            llenarTablaMaterias(RegistrarDocente.tablaMaterias);
         }
         registrarDocente.setVisible(true);
     }//GEN-LAST:event_submenuRegistrarDocenteActionPerformed
@@ -346,7 +351,6 @@ public class Principal extends javax.swing.JFrame {
         Dimension desktopSize = Principal.panel.getSize();
         Dimension FrameSize = reportePorAlumno.getSize();
         reportePorAlumno.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-       
 
         List<Materia> lista = new ArrayList<>();
         lista = controladorMateria.listarMaterias(controladorDocente.buscarCodigoDocenteLogin(correoDocente));
@@ -356,8 +360,26 @@ public class Principal extends javax.swing.JFrame {
             ReportePorFecha.cmbMaterias.addItem(lista.get(i).nombre);
 
         }
-         reportePorAlumno.setVisible(true);
+        reportePorAlumno.setVisible(true);
     }//GEN-LAST:event_submenuReportePorAlumnoActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        EliminarMateria eliminarMateria = new EliminarMateria();
+        panel.add(eliminarMateria);
+        Dimension desktopSize = Principal.panel.getSize();
+        Dimension FrameSize = eliminarMateria.getSize();
+        eliminarMateria.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+
+        List<Materia> lista = new ArrayList<>();
+        lista = controladorMateria.listarTodasMaterias();
+
+        for (int i = 0; i <= lista.size() - 1; i++) {
+
+            EliminarMateria.cmbMaterias.addItem(lista.get(i).nombre);
+
+        }
+        eliminarMateria.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments

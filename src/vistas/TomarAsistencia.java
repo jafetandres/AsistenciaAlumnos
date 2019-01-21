@@ -53,11 +53,15 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
     ControladorAlumno controladorAlumno = new ControladorAlumno();
     ControladorMateria controladorMateria = new ControladorMateria();
     ControladorDocente controladorDocente = new ControladorDocente();
-    static String nombresDocente ;
-    static String apellidosDocente ;
+    static String nombresDocente;
+    static String apellidosDocente;
+    int contadorPresentes = 0;
+    int contadorFaltantes = 0;
+    int totalAsistencia = 0;
+    int porcentajeAlumnos = 0;
 
     public TomarAsistencia(String nombresDocente, String apellidosDocente) {
-       
+
         this.nombresDocente = nombresDocente;
         this.apellidosDocente = apellidosDocente;
         initComponents();
@@ -281,7 +285,6 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
 
         String estado = "";
 
-
         for (int i = 0; i < tablaAlumnos.getRowCount(); i++) {
             int codigoAsistencia = controladorAdministrador.ultimoCodigo("Asistencia") + 1;
             if (tablaAlumnos.getValueAt(i, 3).equals(true)) {
@@ -306,12 +309,19 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
         for (int i = 0; i < tablaAlumnos.getRowCount(); i++) {
 
             if (tablaAlumnos.getValueAt(i, 3).equals(true)) {
+                contadorPresentes++;
                 estado = "PRESENTE";
 
             } else if (tablaAlumnos.getValueAt(i, 3).equals(false)) {
+                contadorFaltantes++;
                 estado = "FALTA";
             }
 
+            System.out.println("PRESENTES: " + contadorPresentes);
+            System.out.println("FALTANTES: " + contadorFaltantes);
+
+            calcularPorcentajeAlumnosAsistentes(contadorPresentes, contadorFaltantes);
+            System.out.println("total: " + calcularPorcentajeAlumnosAsistentes(contadorPresentes, contadorFaltantes));
             asistencia = new Asistencia();
             asistencia.setApellidosAlumnos(tablaAlumnos.getValueAt(i, 1).toString());
             asistencia.setNombresAlumnos(tablaAlumnos.getValueAt(i, 2).toString());
@@ -352,9 +362,8 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
             String[] correosRepresentantes = new String[tablaAlumnos.getRowCount()];
             for (int i = 0; i < correosRepresentantes.length; i++) {
 
-
                 correosRepresentantes[i] = controladorAlumno.listarCorreos(Integer.parseInt("" + tablaAlumnos.getValueAt(i, 0)));
-                
+
                 BodyPart texto = new MimeBodyPart();
                 texto.setText("Reporte Asistencia UPS");
                 BodyPart adjunto = new MimeBodyPart();
@@ -389,9 +398,14 @@ public class TomarAsistencia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnTomarAsistenciaActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-       this.setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    public int calcularPorcentajeAlumnosAsistentes(int contadorPresentes, int contadorFaltantes) {
+        totalAsistencia = contadorFaltantes + contadorPresentes;
+        porcentajeAlumnos = (contadorPresentes * 100) / totalAsistencia;
+        return porcentajeAlumnos;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
