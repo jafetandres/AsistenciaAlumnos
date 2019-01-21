@@ -7,7 +7,7 @@ package controladores;
 
 import entidades.Alumno;
 import entidades.AsistenciaPorFecha;
-import entidades.Materia;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -71,7 +71,7 @@ public class ControladorAlumno {
     }
 
     public List<AsistenciaPorFecha> listaReportePorFecha(String fecha, int codigoMateria) {
-        System.out.println("fecha: "+fecha+"codigo materia: "+codigoMateria);
+        System.out.println("fecha: " + fecha + "codigo materia: " + codigoMateria);
 
         List<AsistenciaPorFecha> lista = new ArrayList<>();
         try {
@@ -79,8 +79,6 @@ public class ControladorAlumno {
             s = controladorConexion.conexion.createStatement();
             String sql = "SELECT DISTINCT Asistencia.fecha, Alumno.nombres, Alumno.apellidos, Asistencia.estado FROM Asistencia,Alumno WHERE Asistencia.fecha='" + fecha + "' AND Asistencia.codigomateria=" + codigoMateria + " AND Alumno.codigo IN(select Asistencia.codigoalumno from Asistencia where Asistencia.fecha='" + fecha + "')";
 
-            
-            
             rs = s.executeQuery(sql);
             while (rs.next()) {
                 AsistenciaPorFecha asistenciaPorFecha = new AsistenciaPorFecha();

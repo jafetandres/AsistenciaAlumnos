@@ -5,11 +5,9 @@
  */
 package entidades;
 
-import java.util.ArrayList;
-
 /**
  * @author jafetandresgalvezquezada
- * @author  Katherine Gonzalez
+ * @author Katherine Gonzalez
  * @author Jonathan Uzhca
  */
 public class Alumno {

@@ -7,11 +7,11 @@ package entidades;
 
 /**
  * @author jafetandresgalvezquezada
- * @author  Katherine Gonzalez
+ * @author Katherine Gonzalez
  * @author Jonathan Uzhca
  */
 public class Usuario {
-    
+
     private int codigo;
     private String tipo;
     private Administrador administrador;
@@ -70,7 +70,5 @@ public class Usuario {
     public String toString() {
         return "Usuario{" + "codigo=" + codigo + ", tipo=" + tipo + ", administrador=" + administrador + ", docente=" + docente + ", contrasena=" + contrasena + '}';
     }
-    
-    
-    
+
 }

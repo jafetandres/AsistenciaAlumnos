@@ -37,6 +37,8 @@ public class RegistrarMateria extends javax.swing.JInternalFrame {
         btnRegistrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
+        setTitle("Registrar Materia");
+
         jLabel1.setText("Nombre:");
 
         jLabel4.setText("Numero de Creditos:");

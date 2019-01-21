@@ -12,13 +12,12 @@ import java.util.ArrayList;
  * @author jafetandresgalvezquezada
  */
 public class Docente {
-    
+
     private int codigo;
     private String nombres;
     private String apellidos;
     private String correo;
     private ArrayList<Materia> listaMaterias;
-    
 
     public Docente(int codigo, String nombres, String apellidos, String correo, ArrayList<Materia> listaMaterias) {
         this.codigo = codigo;
@@ -27,12 +26,9 @@ public class Docente {
         this.correo = correo;
         this.listaMaterias = listaMaterias;
     }
-    
-    public void tomarAsistencia(ArrayList<Alumno> listaAlumnos){
-        
-        
-        
-        
+
+    public void tomarAsistencia(ArrayList<Alumno> listaAlumnos) {
+
     }
 
     public int getCodigo() {
@@ -79,8 +75,5 @@ public class Docente {
     public String toString() {
         return "Docente{" + "codigo=" + codigo + ", nombres=" + nombres + ", apellidos=" + apellidos + ", correo=" + correo + ", listaMaterias=" + listaMaterias + '}';
     }
-    
-    
-    
-    
+
 }

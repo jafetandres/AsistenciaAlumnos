@@ -7,7 +7,6 @@ package controladores;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -249,6 +248,7 @@ public class ControladorAdministrador {
         return tipo;
 
     }
+
     public String compararUsuarioAdministrador(int codigoAdministrador) {
 
         String tipo = "";
@@ -277,7 +277,7 @@ public class ControladorAdministrador {
         return tipo;
 
     }
-    
+
     public String buscarCorreoAdministradorLogin(String correo) {
 
         String correoAdministrador = "";
@@ -306,8 +306,7 @@ public class ControladorAdministrador {
         return correoAdministrador;
 
     }
-    
-    
+
     public int buscarCodigoAdministradorLogin(String correo) {
 
         int codigo = 0;
@@ -336,6 +335,7 @@ public class ControladorAdministrador {
         return codigo;
 
     }
+
     public String buscarContrasenaAdministradorLogin(String correo) {
 
         String contrasenaDocente = "";
@@ -364,5 +364,5 @@ public class ControladorAdministrador {
         return contrasenaDocente;
 
     }
-    
+
 }

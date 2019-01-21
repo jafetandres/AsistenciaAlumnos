@@ -44,6 +44,8 @@ public class RegistrarDocente extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         txtContrasena = new javax.swing.JTextField();
 
+        setTitle("Registrar Docente");
+
         jLabel4.setText("AGREGAR MATERIAS");
 
         jLabel2.setText("Apellidos:");

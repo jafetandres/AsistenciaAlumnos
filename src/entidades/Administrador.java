@@ -5,14 +5,10 @@
  */
 package entidades;
 
-import controladores.ControladorConexion;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author jafetandresgalvezquezada
- * @author  Katherine Gonzalez
+ * @author Katherine Gonzalez
  * @author Jonathan Uzhca
  */
 public class Administrador {

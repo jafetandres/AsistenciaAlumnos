@@ -75,8 +75,6 @@ public class ControladorDocente {
         return codigo;
 
     }
-    
-    
 
     public String buscarCorreoDocenteLogin(String correo) {
 
@@ -106,7 +104,6 @@ public class ControladorDocente {
         return correoDocente;
 
     }
-    
 
     public String buscarContrasenaDocenteLogin(String correo) {
 
